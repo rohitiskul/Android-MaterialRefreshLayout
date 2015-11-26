@@ -52,7 +52,7 @@ public class MaterialRefreshLayout extends FrameLayout {
 
     private int progressTextColor;
 
-    private int progressValue,progressMax;
+    private int progressValue, progressMax;
 
     private boolean showArrow;
 
@@ -100,7 +100,7 @@ public class MaterialRefreshLayout extends FrameLayout {
 
 
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.MaterialRefreshLayout, defstyleAttr, 0);
-        isOverlay = t.getBoolean(R.styleable.MaterialRefreshLayout_overlay,false);
+        isOverlay = t.getBoolean(R.styleable.MaterialRefreshLayout_overlay, false);
         /**attrs for materialWaveView*/
         waveType = t.getInt(R.styleable.MaterialRefreshLayout_wave_height_type, 0);
         if (waveType == 0) {
@@ -127,14 +127,13 @@ public class MaterialRefreshLayout extends FrameLayout {
         progressMax = t.getInteger(R.styleable.MaterialRefreshLayout_progress_max_value, 100);
         showProgressBg = t.getBoolean(R.styleable.MaterialRefreshLayout_progress_show_circle_backgroud, true);
         progressBg = t.getColor(R.styleable.MaterialRefreshLayout_progress_backgroud_color, CircleProgressBar.DEFAULT_CIRCLE_BG_LIGHT);
-        progressSizeType = t.getInt(R.styleable.MaterialRefreshLayout_progress_size_type,0);
-        if(progressSizeType == 0)
-        {
+        progressSizeType = t.getInt(R.styleable.MaterialRefreshLayout_progress_size_type, 0);
+        if (progressSizeType == 0) {
             progressSize = DEFAULT_PROGRESS_SIZE;
-        }else {
+        } else {
             progressSize = BIG_PROGRESS_SIZE;
         }
-        isLoadMore = t.getBoolean(R.styleable.MaterialRefreshLayout_isLoadMore,false);
+        isLoadMore = t.getBoolean(R.styleable.MaterialRefreshLayout_isLoadMore, false);
         t.recycle();
     }
 
@@ -178,7 +177,7 @@ public class MaterialRefreshLayout extends FrameLayout {
         setHeaderView(materialHeadView);
 
         materialFoodView = new MaterialFoodView(context);
-        LayoutParams layoutParams2 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dip2px(context,hIGHER_HEAD_HEIGHT));
+        LayoutParams layoutParams2 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dip2px(context, hIGHER_HEAD_HEIGHT));
         layoutParams2.gravity = Gravity.BOTTOM;
         materialFoodView.setLayoutParams(layoutParams2);
         materialFoodView.showProgressArrow(showArrow);
@@ -211,11 +210,8 @@ public class MaterialRefreshLayout extends FrameLayout {
                         materialHeadView.onBegin(this);
                     }
                     return true;
-                }
-                else if(dy<0 && !canChildScrollDown()&&isLoadMore)
-                {
-                    if(materialFoodView != null&&!isLoadMoreing)
-                    {
+                } else if (dy < 0 && !canChildScrollDown() && isLoadMore) {
+                    if (materialFoodView != null && !isLoadMoreing) {
                         soveLoadMoreLogic();
                     }
                     return super.onInterceptTouchEvent(ev);
@@ -230,8 +226,7 @@ public class MaterialRefreshLayout extends FrameLayout {
         materialFoodView.setVisibility(View.VISIBLE);
         materialFoodView.onBegin(this);
         materialFoodView.onRefreshing(this);
-        if(refreshListener != null)
-        {
+        if (refreshListener != null) {
             refreshListener.onRefreshLoadMore(MaterialRefreshLayout.this);
         }
     }
@@ -246,22 +241,22 @@ public class MaterialRefreshLayout extends FrameLayout {
             case MotionEvent.ACTION_MOVE:
                 mCurrentY = e.getY();
                 float dy = mCurrentY - mTouchY;
-                    dy = Math.min(mWaveHeight * 2, dy);
-                    dy = Math.max(0, dy);
-                    if (mChildView != null) {
-                        float offsetY = decelerateInterpolator.getInterpolation(dy / mWaveHeight / 2) * dy / 2;
-                        float fraction = offsetY / mHeadHeight;
-                        mHeadLayout.getLayoutParams().height = (int) offsetY;
-                        mHeadLayout.requestLayout();
+                dy = Math.min(mWaveHeight * 2, dy);
+                dy = Math.max(0, dy);
+                if (mChildView != null) {
+                    float offsetY = decelerateInterpolator.getInterpolation(dy / mWaveHeight / 2) * dy / 2;
+                    float fraction = offsetY / mHeadHeight;
+                    mHeadLayout.getLayoutParams().height = (int) offsetY;
+                    mHeadLayout.requestLayout();
 
-                        if (materialHeadView != null) {
-                            materialHeadView.onPull(this, fraction);
-
-                        }
-                        if (!isOverlay)
-                            ViewCompat.setTranslationY(mChildView, offsetY);
+                    if (materialHeadView != null) {
+                        materialHeadView.onPull(this, fraction);
 
                     }
+                    if (!isOverlay)
+                        ViewCompat.setTranslationY(mChildView, offsetY);
+
+                }
                 return true;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
@@ -282,7 +277,7 @@ public class MaterialRefreshLayout extends FrameLayout {
                     } else {
                         if (ViewCompat.getTranslationY(mChildView) >= mHeadHeight) {
                             createAnimatorTranslationY(mChildView, mHeadHeight, mHeadLayout);
-                           updateListener();
+                            updateListener();
                         } else {
                             createAnimatorTranslationY(mChildView, 0, mHeadLayout);
                         }
@@ -295,36 +290,28 @@ public class MaterialRefreshLayout extends FrameLayout {
     }
 
 
-    public void autoRefresh()
-    {
-        if(!isRefreshing)
-        {
+    public void autoRefresh() {
+        if (!isRefreshing) {
             updateListener();
-            if(isOverlay)
-            {
+            if (isOverlay) {
                 mHeadLayout.getLayoutParams().height = (int) mHeadHeight;
                 mHeadLayout.requestLayout();
-            }else
-            {
+            } else {
                 createAnimatorTranslationY(mChildView, mHeadHeight, mHeadLayout);
             }
         }
 
     }
 
-    public void autoRefreshLoadMore()
-    {
-        if(isLoadMore)
-        {
+    public void autoRefreshLoadMore() {
+        if (isLoadMore) {
             soveLoadMoreLogic();
-        }else
-        {
+        } else {
             throw new RuntimeException("you must  setLoadMore ture");
         }
     }
 
-    public void updateListener()
-    {
+    public void updateListener() {
         isRefreshing = true;
 
         if (materialHeadView != null) {
@@ -337,42 +324,35 @@ public class MaterialRefreshLayout extends FrameLayout {
 
     }
 
-    public void setLoadMore(boolean isLoadMore)
-    {
+    public void setLoadMore(boolean isLoadMore) {
         this.isLoadMore = isLoadMore;
     }
 
-    public void setProgressColors(int[] colors)
-    {
+    public void setProgressColors(int[] colors) {
         this.colorSchemeColors = colors;
     }
 
-    public void setShowArrow(boolean showArrow)
-    {
+    public void setShowArrow(boolean showArrow) {
         this.showArrow = showArrow;
     }
 
-    public void setShowProgressBg(boolean showProgressBg)
-    {
+    public void setShowProgressBg(boolean showProgressBg) {
         this.showProgressBg = showProgressBg;
     }
 
-    public void setWaveColor(int waveColor)
-    {
+    public void setWaveColor(int waveColor) {
         this.waveColor = waveColor;
     }
 
-    public void setWaveShow(boolean isShowWave){
+    public void setWaveShow(boolean isShowWave) {
         this.isShowWave = isShowWave;
     }
 
-    public void setIsOverLay(boolean isOverLay)
-    {
+    public void setIsOverLay(boolean isOverLay) {
         this.isOverlay = isOverLay;
     }
 
-    public void setProgressValue(int progressValue)
-    {
+    public void setProgressValue(int progressValue) {
         this.progressValue = progressValue;
         materialHeadView.setProgressValue(progressValue);
     }
@@ -422,12 +402,10 @@ public class MaterialRefreshLayout extends FrameLayout {
         if (android.os.Build.VERSION.SDK_INT < 14) {
             if (mChildView instanceof AbsListView) {
                 final AbsListView absListView = (AbsListView) mChildView;
-                if (absListView.getChildCount()>0)
-                {
+                if (absListView.getChildCount() > 0) {
                     int lastChildBottom = absListView.getChildAt(absListView.getChildCount() - 1).getBottom();
                     return absListView.getLastVisiblePosition() == absListView.getAdapter().getCount() - 1 && lastChildBottom <= absListView.getMeasuredHeight();
-                }else
-                {
+                } else {
                     return false;
                 }
 
@@ -468,8 +446,7 @@ public class MaterialRefreshLayout extends FrameLayout {
         setProgressValue(0);
     }
 
-    public void finishRefresh()
-    {
+    public void finishRefresh() {
         this.post(new Runnable() {
             @Override
             public void run() {
@@ -478,8 +455,7 @@ public class MaterialRefreshLayout extends FrameLayout {
         });
     }
 
-    public void finishRefreshLoadMore()
-    {
+    public void finishRefreshLoadMore() {
         this.post(new Runnable() {
             @Override
             public void run() {

@@ -5,10 +5,10 @@
     <string name="action_settings">Settings</string>
 
     <integer-array name="material_colors">
-        <item>@color/material_green</item>
-        <item>@color/material_red</item>
-
-        <item>@color/material_blue</item>
-        <item>@color/material_yellow</item>
+        <item>@color/color1</item>
+        <item>@color/color2</item>
+        <item>@color/color3</item>
+        <item>@color/color4</item>
+        <item>@color/color5</item>
     </integer-array>
 </resources>

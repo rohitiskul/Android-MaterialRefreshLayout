@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary_color">#ff4CAF50</color>
+    <color name="color1">#000000</color>
+    <color name="color2">#c300ff</color>
+    <color name="color3">#c6f2ab</color>
+    <color name="color4">#fff</color>
+    <color name="color5">#8b8b8b</color>
 </resources>

@@ -123,7 +123,7 @@ public class MaterialHeadView extends FrameLayout implements MaterialHeadListene
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(Util.dip2px(getContext(),progressSize),Util.dip2px(getContext(),progressSize));
         layoutParams.gravity = Gravity.CENTER;
         circleProgressBar.setLayoutParams(layoutParams);
-        circleProgressBar.setColorSchemeResources(progress_colors);
+        circleProgressBar.setColorSchemeColors(progress_colors);
         circleProgressBar.setProgressStokeWidth(progressStokeWidth);
         circleProgressBar.setShowArrow(isShowArrow);
         circleProgressBar.setShowProgressText(textType == 0);
