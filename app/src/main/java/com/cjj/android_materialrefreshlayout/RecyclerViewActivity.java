@@ -1,9 +1,8 @@
 package com.cjj.android_materialrefreshlayout;
 
 import android.content.Context;
-import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.cjj.MaterialHeadListener;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 
@@ -26,62 +24,6 @@ import java.util.Random;
 
 public class RecyclerViewActivity extends BaseActivity {
     private MaterialRefreshLayout materialRefreshLayout;
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_list);
-        initsToolbar();
-
-        materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
-//        materialRefreshLayout.setWaveColor(0xffffffff);
-//        materialRefreshLayout.setIsOverLay(false);
-//        materialRefreshLayout.setWaveShow(false);
-//        materialRefreshLayout.setShowProgressBg(true);
-//        materialRefreshLayout.setProgressColors(getResources().getIntArray(R.array.material_colors));
-//        materialRefreshLayout.setShowArrow(true);
-
-        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
-                materialRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        materialRefreshLayout.finishRefresh();
-
-                    }
-                }, 3000);
-                materialRefreshLayout.finishRefreshLoadMore();
-
-            }
-
-            @Override
-            public void onfinish() {
-                Toast.makeText(RecyclerViewActivity.this, "finish", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-                Toast.makeText(RecyclerViewActivity.this, "load more", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                materialRefreshLayout
-                        .autoRefreshLoadMore();
-            }
-        }, 1000);
-        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerview);
-        setupRecyclerView(rv);
-    }
-
-    private void initsToolbar() {
-        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setOnMenuItemClickListener(onMenuItemClick);
-    }
-
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
@@ -121,6 +63,54 @@ public class RecyclerViewActivity extends BaseActivity {
         }
     };
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_list);
+        initsToolbar();
+
+        materialRefreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
+//        materialRefreshLayout.setWaveColor(0xffffffff);
+//        materialRefreshLayout.setIsOverLay(false);
+//        materialRefreshLayout.setWaveShow(false);
+//        materialRefreshLayout.setShowProgressBg(true);
+//        materialRefreshLayout.setProgressColors(getResources().getIntArray(R.array.material_colors));
+//        materialRefreshLayout.setShowArrow(true);
+
+        materialRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+                materialRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        materialRefreshLayout.finishRefresh();
+
+                    }
+                }, 3000);
+                materialRefreshLayout.finishRefreshLoadMore();
+
+            }
+
+            @Override
+            public void onfinish() {
+                Toast.makeText(RecyclerViewActivity.this, "finish", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                Toast.makeText(RecyclerViewActivity.this, "load more", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerview);
+        setupRecyclerView(rv);
+    }
+
+    private void initsToolbar() {
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(onMenuItemClick);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,18 +137,6 @@ public class RecyclerViewActivity extends BaseActivity {
             extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
 
 
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-
-            public final ImageView mImageView;
-
-            public ViewHolder(View view) {
-                super(view);
-                mImageView = (ImageView) view.findViewById(R.id.avatar);
-            }
-
-
-        }
-
         public SimpleStringRecyclerViewAdapter(Context context) {
             super();
         }
@@ -172,11 +150,9 @@ public class RecyclerViewActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            if(position==0)
-            {
+            if (position == 0) {
                 holder.mImageView.setImageResource(R.drawable.a6);
-            }else if(position == 1)
-            {
+            } else if (position == 1) {
                 holder.mImageView.setImageResource(R.drawable.a5);
             }
 
@@ -185,6 +161,18 @@ public class RecyclerViewActivity extends BaseActivity {
         @Override
         public int getItemCount() {
             return 3;
+        }
+
+        public static class ViewHolder extends RecyclerView.ViewHolder {
+
+            public final ImageView mImageView;
+
+            public ViewHolder(View view) {
+                super(view);
+                mImageView = (ImageView) view.findViewById(R.id.avatar);
+            }
+
+
         }
     }
 }

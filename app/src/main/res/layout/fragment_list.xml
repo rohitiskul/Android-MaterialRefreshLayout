@@ -14,27 +14,26 @@
   ~ limitations under the License.
   -->
 
-<com.cjj.MaterialRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/refresh"
-    app:overlay="true"
-    app:isLoadMore="true"
-    app:progress_size_type="normal"
-    app:wave_color="#90ffffff"
-    app:wave_show="true"
+    app:overlay="false"
     app:progress_colors="@array/material_colors"
+    app:progress_show_arrow="false"
+    app:progress_show_circle_backgroud="false"
+    app:progress_size_type="big"
+    app:progress_stoke_width="5dp"
+    app:wave_color="#00ffffff"
     app:wave_height_type="normal"
-    >
+    app:wave_show="true">
 
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-     />
+        android:layout_height="match_parent" />
 
 
 </com.cjj.MaterialRefreshLayout>

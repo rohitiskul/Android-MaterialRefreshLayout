@@ -8,54 +8,34 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorUpdateListener;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 public class MaterialRefreshLayout extends FrameLayout {
 
     public static final String Tag = "cjj_log";
-
-    private MaterialHeadView materialHeadView;
-
-    private MaterialFoodView materialFoodView;
-
-    private boolean isOverlay;
-
-    private int waveType;
-
-    private int DEFAULT_WAVE_HEIGHT = 140;
-
-    private int HIGHER_WAVE_HEIGHT = 180;
-
-    private int DEFAULT_HEAD_HEIGHT = 70;
-
-    private int hIGHER_HEAD_HEIGHT = 100;
-
-    private int DEFAULT_PROGRESS_SIZE = 50;
-
-    private int BIG_PROGRESS_SIZE = 60;
-
-    private int PROGRESS_STOKE_WIDTH = 3;
-
-    private int waveColor;
-
     protected float mWaveHeight;
-
     protected float mHeadHeight;
-
-    private View mChildView;
-
     protected FrameLayout mHeadLayout;
-
     protected boolean isRefreshing;
-
+    private MaterialHeadView materialHeadView;
+    private MaterialFoodView materialFoodView;
+    private boolean isOverlay;
+    private int waveType;
+    private int DEFAULT_WAVE_HEIGHT = 140;
+    private int HIGHER_WAVE_HEIGHT = 180;
+    private int DEFAULT_HEAD_HEIGHT = 70;
+    private int hIGHER_HEAD_HEIGHT = 100;
+    private int DEFAULT_PROGRESS_SIZE = 50;
+    private int BIG_PROGRESS_SIZE = 70;
+    private int PROGRESS_STOKE_WIDTH = 4;
+    private int waveColor;
+    private View mChildView;
     private float mTouchY;
 
     private float mCurrentY;

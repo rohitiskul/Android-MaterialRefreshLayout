@@ -6,7 +6,7 @@ version = "1.3.0"
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22.0.0"
+    buildToolsVersion "23.0.2"
     resourcePrefix "MaterialRefreshLayout"	//这个随便填
     defaultConfig {
         minSdkVersion 11
