@@ -1,13 +1,9 @@
 package com.cjj;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.FrameLayout;
 
 public class MaterialHeadView extends FrameLayout implements MaterialHeadListener{
@@ -127,7 +123,7 @@ public class MaterialHeadView extends FrameLayout implements MaterialHeadListene
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(Util.dip2px(getContext(),progressSize),Util.dip2px(getContext(),progressSize));
         layoutParams.gravity = Gravity.CENTER;
         circleProgressBar.setLayoutParams(layoutParams);
-        circleProgressBar.setColorSchemeColors(progress_colors);
+        circleProgressBar.setColorSchemeResources(progress_colors);
         circleProgressBar.setProgressStokeWidth(progressStokeWidth);
         circleProgressBar.setShowArrow(isShowArrow);
         circleProgressBar.setShowProgressText(textType == 0);
